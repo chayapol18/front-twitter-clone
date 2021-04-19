@@ -10,11 +10,135 @@ import { AuthContext } from '../../contexts/AuthContextProvider';
 import localStorageService from '../../services/localStorageService'
 import axios from '../../config/axios'
 
-function Menulist() {
+const ModalAddTweet = ({ user, content, setContent, handleAddTweet }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    
+    return (
+        <>
+        <Button onClick={onOpen} colorScheme="twitter" variant="solid" ml={3} mt={10} w='220px' h='50px' borderRadius="50px" color="white">
+            Tweet
+        </Button>
+        <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+            <ModalOverlay />
+            <ModalContent>
+            <ModalHeader paddingBottom='0'>
+                <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'></Box>
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <Flex direction='row'>
+                    <Image src={user.profileImg} alt='imgUser' h='50px' w='50px' borderRadius='full' mr='5px'/>
+
+                    <Input placeholder="What's happening ?" h='100px' borderStyle='none' _focus={{ borderStyle:'none' }} value={content} onChange={(e) => setContent(e.target.value)}/>
+                </Flex>
+            </ModalBody>
+    
+            <ModalFooter>
+                <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
+                    <HStack spacing="10px" justify='space-between' w='100%'>
+                        <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
+                        <Button onClick={() => {
+                            handleAddTweet();
+                            onClose();
+                        }}
+                        _hover={{ background: "blue.500", }} 
+                        borderRadius='full' bgColor='blue.400' 
+                        color='white'>Tweet</Button>
+                    </HStack>
+                </Flex>
+            </ModalFooter>
+            </ModalContent>
+        </Modal>
+        </>
+    );
+};
+
+const ModalSetting = ({ user }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    return (
+        <>
+        <Text onClick={onOpen} w='100%'>
+            Setting
+        </Text>
+        <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+            <ModalOverlay />
+            <ModalContent>
+            <ModalHeader paddingBottom='0'>
+                <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'> </Box>
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody >
+                <Flex direction='row'>
+                    <FormLabel>The</FormLabel>
+                    <Input placeholder="What's happening ?" h='100px' borderStyle='none' _focus={{ borderStyle:'none' }}/>
+                </Flex>
+            </ModalBody>
+    
+            <ModalFooter>
+                <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
+                    <HStack spacing="10px" justify='space-between' w='100%'>
+                        <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
+                        <Button _hover={{ background: "blue.500", }} borderRadius='full' bgColor='blue.400' color='white'>Tweet</Button>
+                    </HStack>
+                </Flex>
+            </ModalFooter>
+            </ModalContent>
+        </Modal>
+        </>
+    );
+};
+
+const ModalFollowerRequests = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    return (
+        <>
+        <Text onClick={onOpen} w='100%'>
+            Follower Requests
+        </Text>
+        <Modal isOpen={isOpen} onClose={onClose} size='xl'>
+            <ModalOverlay />
+            <ModalContent>
+            <ModalHeader paddingBottom='0'>
+                <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'> </Box>
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody >
+                <Flex direction='row'>
+                    <FormLabel>Request</FormLabel>
+                    
+                </Flex>
+            </ModalBody>
+    
+            <ModalFooter>
+                <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
+                    <HStack spacing="10px" justify='space-between' w='100%'>
+                        <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
+                        <Button _hover={{ background: "blue.500", }} borderRadius='full' bgColor='blue.400' color='white'>Tweet</Button>
+                    </HStack>
+                </Flex>
+            </ModalFooter>
+            </ModalContent>
+        </Modal>
+        </>
+    );
+};
+
+function Menulist({pathName, getTweet, getMyTweet}) {
+    console.log(pathName)
     const history = useHistory();
     const { setIsAuthenticated } = useContext(AuthContext)
     const { user, setUser } = useContext(AuthContext)
     const [ error, setError ] = useState('')
+
+    const [content, setContent] = useState('')
+    const [tweet, setTweet] = useState([])
+
+    const handleAddTweet = async () => {
+        await axios.post('/tweets', {content, levelTweetId: 1});
+        setContent('');
+        if(pathName==='Home') getTweet();
+        if(pathName==='Profile') getMyTweet();
+    }
     
     useEffect(() => {
         const getMe = async () => {
@@ -40,6 +164,10 @@ function Menulist() {
         history.push('/')
     }
 
+    const handleSearch = (e) => {
+        history.push('/search')
+    }
+
     const handleBookmarks = (e) => {
         history.push('/bookmarks')
     }
@@ -48,111 +176,7 @@ function Menulist() {
         history.push('/profile')
     }
 
-    const ModalAddTweet = () => {
-        const { isOpen, onOpen, onClose } = useDisclosure();
-        return (
-            <>
-            <Button onClick={onOpen} colorScheme="twitter" variant="solid" ml={3} mt={10} w='220px' h='50px' borderRadius="50px" color="white">
-                Tweet
-            </Button>
-            <Modal isOpen={isOpen} onClose={onClose} size='xl'>
-                <ModalOverlay />
-                <ModalContent>
-                <ModalHeader paddingBottom='0'>
-                    <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'></Box>
-                </ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <Flex direction='row'>
-                        <Image src={user.profileImg} alt='imgUser' h='50px' w='50px' borderRadius='full' mr='5px'/>
-
-                        <Input placeholder="What's happening ?" h='100px' borderStyle='none' _focus={{ borderStyle:'none' }}/>
-                    </Flex>
-                </ModalBody>
-        
-                <ModalFooter>
-                    <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
-                        <HStack spacing="10px" justify='space-between' w='100%'>
-                            <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
-                            <Button _hover={{ background: "blue.500", }} borderRadius='full' bgColor='blue.400' color='white'>Tweet</Button>
-                        </HStack>
-                    </Flex>
-                </ModalFooter>
-                </ModalContent>
-            </Modal>
-            </>
-        );
-    };
-
-    const ModalSetting = () => {
-        const { isOpen, onOpen, onClose } = useDisclosure();
-        return (
-            <>
-            <Text onClick={onOpen} w='100%'>
-                Setting
-            </Text>
-            <Modal isOpen={isOpen} onClose={onClose} size='xl'>
-                <ModalOverlay />
-                <ModalContent>
-                <ModalHeader paddingBottom='0'>
-                    <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'> </Box>
-                </ModalHeader>
-                <ModalCloseButton />
-                <ModalBody >
-                    <Flex direction='row'>
-                        <FormLabel>The</FormLabel>
-                        <Input placeholder="What's happening ?" h='100px' borderStyle='none' _focus={{ borderStyle:'none' }}/>
-                    </Flex>
-                </ModalBody>
-        
-                <ModalFooter>
-                    <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
-                        <HStack spacing="10px" justify='space-between' w='100%'>
-                            <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
-                            <Button _hover={{ background: "blue.500", }} borderRadius='full' bgColor='blue.400' color='white'>Tweet</Button>
-                        </HStack>
-                    </Flex>
-                </ModalFooter>
-                </ModalContent>
-            </Modal>
-            </>
-        );
-    };
-
-    const ModalFollowerRequests = () => {
-        const { isOpen, onOpen, onClose } = useDisclosure();
-        return (
-            <>
-            <Text onClick={onOpen} w='100%'>
-                Follower Requests
-            </Text>
-            <Modal isOpen={isOpen} onClose={onClose} size='xl'>
-                <ModalOverlay />
-                <ModalContent>
-                <ModalHeader paddingBottom='0'>
-                    <Box w='109%' h='30px' borderBottom='1px' borderColor='gray.200' ml='-24px'> </Box>
-                </ModalHeader>
-                <ModalCloseButton />
-                <ModalBody >
-                    <Flex direction='row'>
-                        <FormLabel>The</FormLabel>
-                        <Input placeholder="What's happening ?" h='100px' borderStyle='none' _focus={{ borderStyle:'none' }}/>
-                    </Flex>
-                </ModalBody>
-        
-                <ModalFooter>
-                    <Flex direction='row' w='100%' ml='60px' paddingTop='10px' borderTop='1px' borderColor='gray.200'>
-                        <HStack spacing="10px" justify='space-between' w='100%'>
-                            <IconButton _hover={{ background: "blue.100" }} variant="ghost" as={AttachmentIcon} w='20px' h='20px' color="blue.400" borderRadius='full'/>
-                            <Button _hover={{ background: "blue.500", }} borderRadius='full' bgColor='blue.400' color='white'>Tweet</Button>
-                        </HStack>
-                    </Flex>
-                </ModalFooter>
-                </ModalContent>
-            </Modal>
-            </>
-        );
-    };
+    
 
     return (
         <Box position="fixed" w="280px" ml='115px'>
@@ -167,9 +191,9 @@ function Menulist() {
                                 Home
                             </Box>
                         </Button>
-                        <Button colorScheme="blue" variant="none" w='160px' borderRadius="50px" color="black">
+                        <Button colorScheme="blue" variant="none" w='160px' borderRadius="50px" color="black" onClick={handleSearch}>
                             <IconButton variant="none" as={Search2Icon} mr='5px' w='20px' h='20px' color="black" />
-                            <Box w="100%" p={1} color="black" textAlign='left'>
+                            <Box w="100%" p={1} color="black" textAlign='left' >
                                 Explore
                             </Box>
                         </Button>
@@ -193,19 +217,33 @@ function Menulist() {
                             </Box>
                         </Button> */}
                         <Menu>
-                            <MenuButton as={Button} leftIcon={<DragHandleIcon />}  colorScheme="blue" variant="none" w='160px' borderRadius="full" color="black">More</MenuButton>
-                            <MenuList>
+                            <MenuButton as={Button} colorScheme="blue" variant="none" w='160px'  borderRadius="full" color="black" > 
+                                <Flex direction='row' ml='8px' >
+                                    <DragHandleIcon variant="none" w='20px' h='20px' color="black" /> 
+                                    <Text ml='20px' >More</Text> 
+                                </Flex> 
+                            </MenuButton>
+                            <MenuList>  
                                 <MenuItem minH="48px">
-                                    <ModalSetting/>
+                                    <ModalSetting
+                                        user={user}
+                                    />
                                 </MenuItem>
                                 <MenuItem minH="48px">
-                                    <ModalFollowerRequests/>
+                                    <ModalFollowerRequests
+                                        user={user}
+                                    />
                                 </MenuItem>
                             </MenuList>
                         </Menu>
 
                     </Stack>
-                        <ModalAddTweet />
+                        <ModalAddTweet 
+                            user={user}
+                            content={content}
+                            setContent={setContent}
+                            handleAddTweet={handleAddTweet}
+                        />
                     {/* <Button colorScheme="blue" variant="solid" ml={3} mt={10} w='220px' h='50px' borderRadius="50px" color="white">
                         Tweet
                     </Button> */}
@@ -242,7 +280,7 @@ function Menulist() {
                         </MenuItem>
 
                         <MenuItem minH="60px" onClick={handleLogout}>
-                        <span>Log out</span>
+                            <span>Log out</span>
                         </MenuItem>
                     </MenuList>
                 </Menu>

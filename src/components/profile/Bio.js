@@ -2,13 +2,23 @@ import { Flex, Text, Box, Image, Avatar, Button, IconButton, Stack, HStack, Inpu
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react"
 import { useDisclosure } from "@chakra-ui/react"
 import { useContext, useEffect, useState } from 'react';
-import { CalendarIcon } from '@chakra-ui/icons'
+import { CalendarIcon, PlusSquareIcon, DeleteIcon, InfoOutlineIcon } from '@chakra-ui/icons'
 import { AuthContext } from '../../contexts/AuthContextProvider';
 import axios from '../../config/axios'
 import { useHistory } from 'react-router-dom'
+import { IconBase } from 'react-icons/lib';
 
-const EditProfileModal = ({ user }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const EditProfileModal = ({ user, updateUser, setUpdateUser, handleUpdateChange, handleEditProfileButton }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure({
+        onClose: () => {
+            setUpdateUser({
+                name: '',
+                bio: '',
+                location: '',
+                // birthDate: '',
+            });
+        }
+      });
 
     return (
         <>
@@ -19,42 +29,52 @@ const EditProfileModal = ({ user }) => {
             <ModalOverlay />
             <ModalContent>
             <ModalHeader>
-                <Text fontWeight='700'>Edit your profile</Text>
+                <Text fontWeight='700'>Edit profile</Text>
             </ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                    <Stack spacing={3}>
-                        <Image src={user.backgroundImg} alt='background img' h='190px' objectFit="cover" />
+                    <Flex direction='column' h='190px' w='100%'>
+                        <Image src={user.backgroundImg} alt='background img' h='100%'  objectFit="cover" />
+                        <Flex direction='row' m='auto'>
+                            <IconButton as={PlusSquareIcon} color='white' h='20px' w='20px' mt='-100px' variant='ghost' />
+                            <IconButton as={DeleteIcon} color='white'  h='20px' w='20px' mt='-100px' variant='ghost' />
+                        </Flex>      
+                    </Flex>
                         <Avatar name="user avatar" src={user.profileImg} mt='-68px' size="2xl" border='solid 5px white'></Avatar>
+                        <IconButton as={PlusSquareIcon} color='white' h='20px' w='20px' mt='-35px' ml='-85px' variant='ghost'  />
+                    <Stack spacing={3}>
                         <FormControl id='name' isRequired>
                             <FormLabel>Name</FormLabel>
-                            <Input placeholder='Name' type="text" name="name" />
+                            <Input placeholder='Name' type="text" name="name" value={updateUser.name} onChange={handleUpdateChange} />
                         </FormControl>
                         
                         <FormControl id='bio' isRequired>
                             <FormLabel>Bio</FormLabel>
-                            <Input placeholder='Email' type="email" name="bio"/>
+                            <Input placeholder='Bio' type="text" name="bio" value={updateUser.bio} onChange={handleUpdateChange}/>
                         </FormControl>
 
                         <FormControl id='location' isRequired>
                             <FormLabel>Location</FormLabel>
-                            <Input placeholder='Location' type="text" name="location" />
+                            <Input placeholder='Location' type="text" name="location" value={updateUser.location} onChange={handleUpdateChange}/>
                         </FormControl>
 
-                        <FormControl id='birthDate' isRequired>
+                        {/* <FormControl id='birthDate' isRequired>
                             <FormLabel>Date of Birth</FormLabel>
-                            <Input placeholder='Username' type="text" name="birthDate" />
-                        </FormControl>
+                            <Input placeholder='Date of Birth' type="text" name="birthDate" value={updateUser.birthDate} onChange={handleUpdateChange}/>
+                        </FormControl> */}
 
                     </Stack>
                 
             </ModalBody>
     
             <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onClose}>
-                Cancel
-              </Button>
-              <Button colorScheme="blue"  >
+              <Button 
+                colorScheme="blue" 
+                onClick={() => {
+                    handleEditProfileButton();
+                    onClose();
+                }} 
+                >
                 Save
               </Button>
             </ModalFooter>
@@ -69,6 +89,38 @@ function Bio() {
     const history = useHistory()
     const [numberFollowing, setNumberFollowing] = useState([])
     const [numberFollower, setNumberFollower] = useState([])
+    const [updateUser, setUpdateUser] = useState({
+        name: '',
+        bio: '',
+        location: '',
+        // birthDate: '',
+    })
+
+    const handleUpdateChange = e => {
+        const { name, value } = e.target
+        setUpdateUser(prev => ({...prev, [name]: value}))
+    }
+
+    const handleEditProfileButton = () => {
+        axios
+        .patch('/users/update-profile', { 
+            name: updateUser.name, 
+            bio: updateUser.bio,
+            location: updateUser.location,
+            // birthDate: updateUser.birthDate,
+        })
+        // .then(res => {
+
+        // })
+        .catch(err => {
+            console.log(err)
+        //   if (err.response) {
+        //     setError({ server: err.response.data.message })
+        //   } else {
+        //     setError({ front: err.message })
+        //   }
+        })
+    }
 
     const [following, setFollowing] = useState([])
     const [follower, setFollower] = useState([])
@@ -89,14 +141,10 @@ function Bio() {
         }
     };
 
-    console.log(following)
-    console.log(follower)
-
     useEffect(() => {
         getFollow()
     }, [])
 
-        
     const handleFollowButton = () => {
         history.push('/follow')
     }
@@ -126,25 +174,29 @@ function Bio() {
                 <Avatar name="user avatar" src={user.profileImg} mt='-68px' size="2xl" border='solid 5px white'></Avatar>
                 <EditProfileModal
                     user={user}
+                    updateUser={updateUser}
+                    setUpdateUser={setUpdateUser}
+                    handleUpdateChange={handleUpdateChange}
+                    handleEditProfileButton={handleEditProfileButton}
                  />
                 {/* <Button mt='15px' bgColor='white' border='solid 1px' borderRadius='full' color='blue.400' >Edit profile</Button> */}
             </Flex>
 
-            <Flex dir='column' textAlign='left' ml='20px' >
+            <Flex direction='column' textAlign='left' ml='20px' >
                 <Stack spacing={3}>
                     <Box>
                         <Text fontWeight='700' fontSize='25px'>{user.name}</Text>
                         <Text color='gray.400' mt='-5px'>@{user.username}</Text>
                     </Box>
                     <Text h='50px'>{user.bio}</Text>
-                    <Text color='gray.500'>Born {`${months[userBirthDate.getMonth()]} ${userBirthDate.getDate()}, ${userBirthDate.getFullYear()}`} <CalendarIcon ml='5px' mb='1px' /> Joined {`${months[createdAtDate.getMonth()]} ${createdAtDate.getFullYear()}`} </Text>
+                    <Text color='gray.500'> <InfoOutlineIcon mb='2px' />  Born {`${months[userBirthDate.getMonth()]} ${userBirthDate.getDate()}, ${userBirthDate.getFullYear()}`} 
+                    <CalendarIcon ml='15px' mb='2px' /> Joined {`${months[createdAtDate.getMonth()]} ${createdAtDate.getFullYear()}`} </Text>
                     {/* {Date(user.createdAt).split(' ').slice(1, 4).join(' ')} */}
                 </Stack>
             </Flex>
             
 
-            <Flex dir='row' ml='20px' mt='10px'>
-                <HStack spacing={5}>
+            <Flex direction='row' ml='5px' mt='10px'>
                     <Button variant='ghost' onClick={handleFollowButton} _hover={{ textDecoration:'underline' }}>
                         <HStack spacing={1}>
                             <Text fontWeight='700'>{numberFollowing.count}</Text>
@@ -157,7 +209,6 @@ function Bio() {
                             <Text color='gray.400'>Follower</Text>
                         </HStack>
                     </Button>
-                </HStack>
             </Flex>
 
             

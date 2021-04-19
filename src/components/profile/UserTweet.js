@@ -4,26 +4,8 @@ import axios from '../../config/axios'
 import EachTweet from '../tweet/EachTweet'
 import Tweets from '../tweet/Tweets'
 
-function UserTweets() {
-    const [tweet, setTweet] = useState([])
-    const [triggerDelete, setTriggerDelete] = useState(false)
-
-    const getMyTweet = async () => {
-        try {
-            const res = await axios.get('/tweets/personal')
-            setTweet(res.data.tweets)
-            console.log(res.data)
-            console.log(res.data.tweets)
-        } catch (err) {
-
-        }
-    };
-
-    console.log(tweet)
-
-    useEffect(() => {
-        getMyTweet()
-    }, [])
+function UserTweets({tweet, setTriggerDelete}) {
+  
 
     return(
         <Flex>

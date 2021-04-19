@@ -8,6 +8,7 @@ function AddTweet({ getTweet }) {
     const { user } = useContext(AuthContext)
 
     const [content, setContent] = useState('')
+    
 
     const handleAddTweet = async () => {
         await axios.post('/tweets', {content, levelTweetId: 1})
@@ -18,9 +19,9 @@ function AddTweet({ getTweet }) {
 console.log(content)
     return(
         <Flex direction='row' p='10px 10px 0 10px' w='600px' borderBottom='solid 1px' borderColor='gray.200'>
-            <Image src={user.profileImg} alt='imgUser' h='50px' w='50px' borderRadius='full' mr='5px'/>
+            <Image src={user.profileImg} objectFit='cover' alt='imgUser' boxSize="50px" borderRadius='full' />
 
-            <Flex direction='column' ml='10px' w='100%'>
+            <Flex direction='column' ml='5px' w='100%'>
                 <Input placeholder="What's happening ?" borderStyle='none' _focus={{ borderStyle:'none' }} value={content} onChange={(e) => setContent(e.target.value)}/>
 
                 <Flex direction='row' m='10px 0' w='100%' >

@@ -28,11 +28,12 @@ const DatePickerButton = ({ onSelect, selected }) => {
 const SignupModal = ({input, setInput, handleInputChange, handleSubmit, birthDate, setBirthDate }) => {
     const { isOpen, onOpen, onClose } = useDisclosure({
       onClose: () => {
-        setInput({name: '',
-        email: '',
-        username: '',
-        password: '',
-        confirmPassword: '',
+        setInput({
+          name: '',
+          email: '',
+          username: '',
+          password: '',
+          confirmPassword: '',
         });
         setBirthDate('')
       }
@@ -214,7 +215,6 @@ function Register() {
     }
     
     const handleSubmit = () => {
-      console.log(input)
         axios
         .post('/register', { 
           name: input.name, 
@@ -236,8 +236,6 @@ function Register() {
             setError({ front: err.message })
           }
         })
-        
-  
     }
 
     return (

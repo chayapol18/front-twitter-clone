@@ -7,11 +7,14 @@ import Bookmark from '../components/tweet/Bookmark'
 function BookmarksPage() {
     return(
         <Flex direction='row'>
-            <Menulist />
-            <Content
-                header='Bookmarks'
-                body={Bookmark()}
-            />   
+            <Menulist 
+                pathName='Bookmark'
+            />
+
+            <Content header='Bookmarks' >
+                <Bookmark pathName='Bookmark' />
+            </Content>
+ 
             <TrendBar />
         </Flex>
     )

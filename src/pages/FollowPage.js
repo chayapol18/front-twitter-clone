@@ -19,7 +19,7 @@ function FollowPage() {
     return(
         <Flex direction='row'>
             <Menulist />
-            <Content
+            <Content 
                 header={
                     <Flex direction='row'> 
                         <HStack spacing={4}>
@@ -37,9 +37,9 @@ function FollowPage() {
                             </Flex>
                         </HStack>
                     </Flex>
-                }
-                body='body'
-            />   
+                }>
+                    <Follow />
+                </Content>
             <TrendBar />
         </Flex>
     )

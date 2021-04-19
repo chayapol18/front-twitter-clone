@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import EachTweet from '../tweet/EachTweet'
 import axios from '../../config/axios'
 
-function Bookmark() {
+function Bookmark({pathName}) {
     const [bookmark, setBookmark] = useState([])
     const [triggerDelete, setTriggerDelete] = useState(false)
 
@@ -31,7 +31,7 @@ function Bookmark() {
         <Flex direction='column'>
 
             { bookmark.map(tweet => (
-                <EachTweet key={tweet.id} {...tweet} setTriggerDelete={setTriggerDelete} />
+                <EachTweet key={tweet.id} {...tweet} setTriggerDelete={setTriggerDelete} pathName={pathName} />
             ))}
         </Flex>
     )

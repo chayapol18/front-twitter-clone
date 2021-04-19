@@ -6,8 +6,10 @@ import Auth from './pages/Auth'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage'
+import SearchPage from './pages/SearchPage'
 import FollowPage from './pages/FollowPage'
 import BookmarksPage from './pages/BookmarksPage'
+import TweetPage from './pages/TweetPage'
 import { useContext } from 'react'
 import { AuthContext } from './contexts/AuthContextProvider'
 
@@ -15,6 +17,14 @@ const privateRoutes = [
   {
     path: '/',
     component: Home
+  },
+  {
+    path: '/tweet',
+    component: TweetPage
+  },
+  {
+    path: '/search',
+    component: SearchPage
   },
   {
     path: '/profile',
