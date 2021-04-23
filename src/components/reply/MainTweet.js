@@ -4,6 +4,7 @@ import {
   Text,
   HStack,
   Button,
+  Icon,
   IconButton,
   Menu,
   MenuButton,
@@ -11,8 +12,6 @@ import {
   MenuItem,
   Input,
   Box,
-  Avatar,
-  Icon,
 } from "@chakra-ui/react";
 import {
   RepeatIcon,
@@ -34,10 +33,8 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { MdSettings } from "react-icons/md";
 import { BiArrowToTop, BiMessageRounded } from "react-icons/bi";
 import { FiHeart, FiRepeat } from "react-icons/fi";
-import { GrUpload } from "react-icons/gr";
 import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import axios from "../../config/axios";
@@ -58,8 +55,8 @@ const ModalAddReply = ({
         _hover={{ background: "blue.100", color: "blue.300" }}
         variant="ghost"
         as={BiMessageRounded}
-        w="20px"
-        h="20px"
+        w="17px"
+        h="17px"
         color="gray.400"
         borderRadius="full"
       />
@@ -153,60 +150,49 @@ const ModalAddReply = ({
   );
 };
 
-function EachTweet({
-  id,
-  content,
-  createdAt,
-  like,
-  retweets,
-  User: { id: userId, name, username, profileImg },
-  setTriggerDelete,
-  pathName,
-  getTweet,
-}) {
+function MainTweet({ myParams, setTriggerReply}) {
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const [replyContent, setReplyContent] = useState("");
-  const [isRetweet, setIsRetweet] = useState(false);
-  const [tweetInRetweets, setTweetInRetweets] = useState([])
+  const [tweetIncReply, setTweetIncReply] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const checkRetweet = async () => {
+  const getTweetAndReply = async () => {
     try {
-      const res = await axios.get(`/tweets/get-retweets-tweet/${id}`);
-      if(res.data.retweets) setTweetInRetweets(res.data.retweets);
+      const res = await axios.get(`/tweets/inc-reply/${myParams}`);
+      setTweetIncReply(res.data.tweetWithReply.mainTweet);
+      setIsLoading(false);
     } catch (err) {}
   };
+  console.log(tweetIncReply);
 
   useEffect(() => {
-    checkRetweet();
+    getTweetAndReply();
   }, []);
 
   const handleDeleteTweet = async (tweetId) => {
     try {
       await axios.delete(`/tweets/${tweetId}`);
-      setTriggerDelete((prev) => !prev);
+      // setTriggerDelete((prev) => !prev);
+      history.push('/')
     } catch (err) {}
   };
 
-  const handleBookmarkButton = async (tweetId) => {
-    try {
-      await axios.post(`/tweets/bookmark/`, {
-        content,
-        userId: user.id,
-        tweetId,
-      });
-    } catch (err) {}
-  };
+  // const handleBookmarkButton = async (tweetId) => {
+  //   try {
+  //     await axios.post(`/tweets/bookmark/`, {
+  //       content,
+  //       userId: user.id,
+  //       tweetId,
+  //     });
+  //   } catch (err) {}
+  // };
 
   const handleDeleteBookmark = async (bookmarkId) => {
     try {
       await axios.delete(`/tweets/bookmarks/${bookmarkId}`);
-      setTriggerDelete((prev) => !prev);
+      // setTriggerDelete((prev) => !prev);
     } catch (err) {}
-  };
-
-  const handleGoToTweet = (tweetId) => {
-    history.push("/tweet", { params: tweetId, pathName });
   };
 
   const handleReplyTweet = async (tweetId) => {
@@ -216,36 +202,23 @@ function EachTweet({
       replyToTweetId: tweetId,
     });
     setReplyContent("");
-    getTweet();
+    setTriggerReply((prev) => !prev);
   };
 
   const handleRetweet = async (tweetId) => {
     try {
       await axios.post(`/tweets/retweet`, { tweetId });
       await axios.patch(`/tweets/increase-retweet`, { tweetId });
-      setTriggerDelete((prev) => !prev);
-      setIsRetweet(true);
-      // window.location.reload()
+      // setTriggerDelete((prev) => !prev);
     } catch (err) {}
   };
 
-  const handleUndoRetweet = async (tweetId) => {
-    try {
-      await axios.delete(`/tweets/retweet/${tweetId}`)
-      await axios.patch(`/tweets/decrease-retweet`, { tweetId });
-      setIsRetweet(false);
-      setTriggerDelete((prev) => !prev);
-    } catch(err) {
-
-    }
-  }
-
   const handleLikeTweet = async (tweetId) => {
     await axios.patch(`/tweets/increase-like`, { tweetId });
-    setTriggerDelete((prev) => !prev);
+    // setTriggerDelete((prev) => !prev);
   };
 
-  const createdAtDate = new Date(createdAt);
+  const createdAtDate = new Date(tweetIncReply.createdAt);
   const months = [
     "Jan",
     "Feb",
@@ -261,6 +234,8 @@ function EachTweet({
     "Dec",
   ];
 
+  if (isLoading) return <Text>loading</Text>;
+
   return (
     <Flex
       direction="row"
@@ -270,31 +245,77 @@ function EachTweet({
       borderColor="gray.200"
       _hover={{ background: "gray.100" }}
     >
-      {profileImg ? <Avatar src={profileImg} boxSize="50px" /> : <Avatar />}
+      <Image
+        src={tweetIncReply.User.profileImg}
+        objectFit="cover"
+        alt="imgUser"
+        boxSize="50px"
+        borderRadius="full"
+      />
 
       <Flex direction="column">
-        <Flex direction="row" alignItems="flex-start" ml="10px">
+        <Flex
+          direction="row"
+          alignItems="flex-start"
+          ml="10px"
+          justify="space-between"
+          w="520px"
+        >
           <HStack spacing="10px">
-            <Text>{name}</Text>
-            <Text color="gray.400">@{username}</Text>
-            <Text color="gray.400">{`${
-              months[createdAtDate.getMonth()]
-            } ${createdAtDate.getDate()}, ${createdAtDate.getFullYear()}`}</Text>
+            <Text>{tweetIncReply.User.name}</Text>
+            <Text color="gray.400">@{tweetIncReply.User.username}</Text>
+
             {/* <Text color='gray.400'>{Date(createdAt).split(' ').slice(1, 4).join(' ')}</Text> */}
           </HStack>
 
           {/* <IconButton icon={<SettingsIcon/>} variant="ghost" _hover={{ background: "white" }} _focus={{ background: "white", borderStyle:'none' }} /> */}
-          
+
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<SettingsIcon />}
+              variant="ghost"
+              _hover={{ background: "blue.100", color: "blue.300" }}
+              _focus={{ background: "white", borderStyle: "none" }}
+              h="25px"
+              w="30px"
+              color="gray.400"
+            />
+            <MenuList>
+              {user.id === tweetIncReply.User.id && (
+              <MenuItem
+                icon={<DeleteIcon />}
+                onClick={() => handleDeleteTweet(tweetIncReply.id)}
+              >
+                Delete Tweet
+              </MenuItem>
+              )}
+            </MenuList>
+          </Menu>
         </Flex>
 
-        <Text
-          textAlign="left"
-          ml="10px"
-          mt="5px"
-          onClick={() => handleGoToTweet(id)}
-        >
-          {content}
+        <Text textAlign="left" ml="10px" mt="5px" mb='10px'>
+          {tweetIncReply.content}
         </Text>
+
+        <Text color="gray.400" textAlign="left" ml="10px" mb='10px'>{`${
+          months[createdAtDate.getMonth()]
+        } ${createdAtDate.getDate()}, ${createdAtDate.getFullYear()}`}</Text>
+        <hr style={{ marginLeft: 10}} />
+        <HStack spacing="20px" my="5px" ml="10px" color='gray.400'>
+          {tweetIncReply.retweet ? (
+            <Text>{tweetIncReply.retweet} Retweets</Text>
+          ) : (
+            <Text>0 Retweet</Text>
+          )}
+          {tweetIncReply.like ? (
+            <Text>{tweetIncReply.like} Like</Text>
+          ) : (
+            <Text>0 Like</Text>
+          )}
+        </HStack>
+        <hr style={{ marginLeft: 10}} />
 
         <Flex direction="row" m="14px 0 20px">
           <HStack spacing="100px">
@@ -303,103 +324,43 @@ function EachTweet({
               replyContent={replyContent}
               setReplyContent={setReplyContent}
               user={user}
-              handleReplyTweet={() => handleReplyTweet(id)}
+              handleReplyTweet={() => handleReplyTweet(tweetIncReply.id)}
             />
             <Menu>
-              <HStack
-                spacing="-5px"
-                _hover={{ background: "none", color: "green.300" }}
-                color="gray.400"
-              >
-                {tweetInRetweets.tweetId === id ? (
-                  <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<FiRepeat />}
-                    variant="ghost"
-                    _hover={{ background: "none", color: "green.300" }}
-                    _focus={{ background: "none", borderStyle: "none" }}
-                    w="19px"
-                    h="19px"
-                    color="green.400"
-                  />
-                ) : (
-                  <MenuButton
-                    as={IconButton}
-                    aria-label="Options"
-                    icon={<FiRepeat />}
-                    variant="ghost"
-                    _hover={{ background: "none", color: "green.300" }}
-                    _focus={{ background: "none", borderStyle: "none" }}
-                    w="19px"
-                    h="19px"
-                  />
-                )}
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<FiRepeat />}
+                  variant="ghost"
+                  _hover={{ background: "none", color: "green.300" }}
+                  _focus={{ background: "white", borderStyle: "none" }}
+                  color="gray.400"
+                  w="19px"
+                  h="19px"
+                />
 
-                {retweets ? (
-                  <Text
-                    fontSize="12px"
-                    _hover={{ background: "none", color: "green.300" }}
-                  >
-                    {retweets}
-                  </Text>
-                ) : (
-                  <Text fontSize="12px" color="white">
-                    0
-                  </Text>
-                )}
-              </HStack>
-
-              {tweetInRetweets.tweetId === id ? (
-                <MenuList>
-                  <MenuItem
-                    icon={<RepeatIcon />}
-                    onClick={() => handleUndoRetweet(id)}
-                  >
-                    Undo Retweet
-                  </MenuItem>
-                  <MenuItem icon={<EditIcon />}>Quote Tweet</MenuItem>
-                </MenuList>
-              ) : (
-                <MenuList>
-                  <MenuItem
-                    icon={<RepeatIcon />}
-                    onClick={() => handleRetweet(id)}
-                  >
-                    Retweet
-                  </MenuItem>
-                  <MenuItem icon={<EditIcon />}>Quote Tweet</MenuItem>
-                </MenuList>
-              )}
+              <MenuList>
+                <MenuItem
+                  icon={<RepeatIcon />}
+                  onClick={() => handleRetweet(tweetIncReply.id)}
+                >
+                  Retweet
+                </MenuItem>
+                <MenuItem icon={<EditIcon />}>Quote Tweet</MenuItem>
+              </MenuList>
             </Menu>
 
             {/* <IconButton _hover={{ background: "green.100", color: "green.300", }} variant="ghost" as={RepeatIcon} w='18px' h='18px' color="gray.400" /> */}
-            <HStack
-              spacing="-5px"
-              _hover={{ background: "none", color: "red.400" }}
-              color="gray.400"
-            >
               <IconButton
                 _hover={{ background: "none", color: "red.400" }}
+                color="gray.400"
                 variant="ghost"
                 as={FiHeart}
                 w="17px"
                 h="17px"
-                onClick={() => handleLikeTweet(id)}
+                onClick={() => handleLikeTweet(tweetIncReply.id)}
               />
-              {like ? (
-                <Text
-                  fontSize="12px"
-                  _hover={{ background: "none", color: "red.400" }}
-                >
-                  {like}
-                </Text>
-              ) : (
-                <Text fontSize="12px" color="white">
-                  0
-                </Text>
-              )}
-            </HStack>
+              
 
             <Menu>
               <MenuButton
@@ -412,59 +373,35 @@ function EachTweet({
                 w="19px"
                 h="19px"
                 color="gray.400"
+                ml="70px"
               />
 
               <MenuList>
-                {pathName !== "Bookmark" && (
-                  <MenuItem
-                    icon={<EditIcon />}
-                    onClick={() => handleBookmarkButton(id)}
-                  >
-                    Add Tweet to Bookmarks
-                  </MenuItem>
-                )}
+                {/* {pathName !== "Bookmark" && ( */}
+                <MenuItem
+                  icon={<EditIcon />}
+                  // onClick={() => handleBookmarkButton(id)}
+                >
+                  Add Tweet to Bookmarks
+                </MenuItem>
+                {/* )} */}
 
-                {pathName === "Bookmark" && (
-                  <MenuItem
-                    icon={<DeleteIcon />}
-                    onClick={() => handleDeleteBookmark(id)}
-                  >
-                    Remove Tweet from Bookmark
-                  </MenuItem>
-                )}
+                {/* {pathName === "Bookmark" && ( */}
+                <MenuItem
+                  icon={<DeleteIcon />}
+                  // onClick={() => handleDeleteBookmark(id)}
+                >
+                  Remove Tweet from Bookmark
+                </MenuItem>
+                {/* )} */}
               </MenuList>
             </Menu>
             {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ExternalLinkIcon} w='18px' h='18px' color="gray.400" onClick={() => handleBookmarkButton(id)}/> */}
           </HStack>
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<SettingsIcon />}
-              variant="ghost"
-              _hover={{ background: "blue.100", color: "blue.300" }}
-              _focus={{ background: "white", borderStyle: "none" }}
-              h="30px"
-              w="30px"
-              color="gray.400"
-              mt='-68px'
-              ml='25px'
-            />
-            <MenuList>
-              {user.id === userId && (
-                <MenuItem
-                  icon={<DeleteIcon />}
-                  onClick={() => handleDeleteTweet(id)}
-                >
-                  Delete Tweet
-                </MenuItem>
-              )}
-            </MenuList>
-          </Menu>
         </Flex>
       </Flex>
     </Flex>
   );
 }
 
-export default EachTweet;
+export default MainTweet;

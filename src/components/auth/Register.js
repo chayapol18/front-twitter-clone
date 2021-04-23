@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import localStorageService from '../../services/localStorageService'
 
 const DatePickerButton = ({ onSelect, selected }) => {
-    const [startDate, setStartDate] = useState(new Date());
+    // const [startDate, setStartDate] = useState(new Date());
     return (
       <DatePicker
         selected={selected}

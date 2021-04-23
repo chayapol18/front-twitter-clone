@@ -5,16 +5,42 @@ import { Flex, IconButton, Text, HStack } from '@chakra-ui/react'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import Follow from '../components/follow/Follow'
 import { useHistory } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../contexts/AuthContextProvider';
+import axios from '../config/axios'
 
 function FollowPage() {
     const history = useHistory()
     const { user } = useContext(AuthContext)
+    const [followers, setFollowers] = useState([]);
+    const [following, setFollowing] = useState([]);
 
     const handleBackButton = () => {
         history.push('/profile')
     }
+
+    const getFollowers = async () => {
+        try {
+            const res = await axios.get("/follows/follow-by");
+            setFollowers(res.data.followBy);
+        } catch(err) {
+
+        }
+    }
+
+    const getFollowing = async () => {
+        try {
+            const res = await axios.get("/follows/following");
+            setFollowing(res.data.following);
+        } catch(err) {
+
+        }
+    }
+    
+      useEffect(() => {
+        getFollowers();
+        getFollowing()
+      }, []);
 
     return(
         <Flex direction='row'>
@@ -38,7 +64,7 @@ function FollowPage() {
                         </HStack>
                     </Flex>
                 }>
-                    <Follow />
+                    <Follow followers={followers} following={following} />
                 </Content>
             <TrendBar />
         </Flex>

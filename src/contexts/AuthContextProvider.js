@@ -6,9 +6,8 @@ export const AuthContext = createContext()
 function AuthContextProvider({ children }) {
     const [ isAuthenticated, setIsAuthenticated] = useState(localStorageService.getToken())
     const [ user, setUser ] = useState({})
-    const [ isBookmark, setIsBookmark ] = useState(false)
 
-    return <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser, isBookmark, setIsBookmark }}>
+    return <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, user, setUser  }}>
         {children}
     </AuthContext.Provider>
 

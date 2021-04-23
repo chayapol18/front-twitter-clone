@@ -284,7 +284,30 @@ function EachTweet({
           </HStack>
 
           {/* <IconButton icon={<SettingsIcon/>} variant="ghost" _hover={{ background: "white" }} _focus={{ background: "white", borderStyle:'none' }} /> */}
-          
+          <Menu>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<SettingsIcon />}
+              variant="ghost"
+              _hover={{ background: "blue.100", color: "blue.300" }}
+              _focus={{ background: "white", borderStyle: "none" }}
+              ml="230px"
+              h="30px"
+              w="30px"
+              color="gray.400"
+            />
+            <MenuList>
+              {user.id === userId && (
+                <MenuItem
+                  icon={<DeleteIcon />}
+                  onClick={() => handleDeleteTweet(id)}
+                >
+                  Delete Tweet
+                </MenuItem>
+              )}
+            </MenuList>
+          </Menu>
         </Flex>
 
         <Text
@@ -412,6 +435,7 @@ function EachTweet({
                 w="19px"
                 h="19px"
                 color="gray.400"
+                ml="70px"
               />
 
               <MenuList>
@@ -436,31 +460,6 @@ function EachTweet({
             </Menu>
             {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ExternalLinkIcon} w='18px' h='18px' color="gray.400" onClick={() => handleBookmarkButton(id)}/> */}
           </HStack>
-          <Menu>
-            <MenuButton
-              as={IconButton}
-              aria-label="Options"
-              icon={<SettingsIcon />}
-              variant="ghost"
-              _hover={{ background: "blue.100", color: "blue.300" }}
-              _focus={{ background: "white", borderStyle: "none" }}
-              h="30px"
-              w="30px"
-              color="gray.400"
-              mt='-68px'
-              ml='25px'
-            />
-            <MenuList>
-              {user.id === userId && (
-                <MenuItem
-                  icon={<DeleteIcon />}
-                  onClick={() => handleDeleteTweet(id)}
-                >
-                  Delete Tweet
-                </MenuItem>
-              )}
-            </MenuList>
-          </Menu>
         </Flex>
       </Flex>
     </Flex>
