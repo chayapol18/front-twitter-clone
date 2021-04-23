@@ -5,7 +5,7 @@ import { FaTwitter } from "react-icons/fa"
 
 function Auth() {
     return (
-        <Flex direction='row' h='700px'>
+        <Flex direction='row' h='721px'>
             <Box w='55%' h='100%' bgColor='blue.400'>
                 <IconButton variant="none" as={FaTwitter} m={3} w='50%' h='50%' color="white" mt='150px'/>
             </Box>

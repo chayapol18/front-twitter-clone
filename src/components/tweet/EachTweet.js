@@ -311,7 +311,7 @@ function EachTweet({
                 _hover={{ background: "none", color: "green.300" }}
                 color="gray.400"
               >
-                {tweetInRetweets.tweetId === id ? (
+                {tweetInRetweets.tweetId === id || isRetweet ? (
                   <MenuButton
                     as={IconButton}
                     aria-label="Options"
@@ -350,7 +350,7 @@ function EachTweet({
                 )}
               </HStack>
 
-              {tweetInRetweets.tweetId === id ? (
+              {tweetInRetweets.tweetId === id || isRetweet ? (
                 <MenuList>
                   <MenuItem
                     icon={<RepeatIcon />}

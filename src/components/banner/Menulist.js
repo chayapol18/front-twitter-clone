@@ -302,19 +302,19 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
     history.push("/");
   };
 
-  const handleHome = (e) => {
+  const handleHome = () => {
     history.push("/");
   };
 
-  const handleSearch = (e) => {
+  const handleSearch = () => {
     history.push("/search");
   };
 
-  const handleBookmarks = (e) => {
+  const handleBookmarks = () => {
     history.push("/bookmarks");
   };
 
-  const handleProfile = (e) => {
+  const handleProfile = () => {
     history.push("/profile");
   };
 

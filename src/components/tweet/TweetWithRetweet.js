@@ -173,6 +173,7 @@ function TweetWithReTweet({
   pathName,
   getMyTweet,
 }) {
+
   const { user } = useContext(AuthContext);
   const history = useHistory();
   const [replyContent, setReplyContent] = useState("");

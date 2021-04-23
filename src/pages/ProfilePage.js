@@ -24,7 +24,8 @@ function ProfilePage() {
     try {
       setTweet([])
       const res = await axios.get("/tweets/personal");
-      setTweet(res.data.tweets);
+      console.log(res.data.tweets.length)
+      setTweet(() => res.data.tweets);
     } catch (err) {}
   };
 
@@ -48,6 +49,8 @@ function ProfilePage() {
   const handleBackButton = () => {
     history.push("/");
   };
+
+  console.log(tweet)
 
   return (
     <Flex direction="row">

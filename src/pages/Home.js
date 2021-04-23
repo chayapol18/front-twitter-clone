@@ -11,8 +11,6 @@ import { AuthContext } from "../contexts/AuthContextProvider";
 function Home() {
   const [tweet, setTweet] = useState([]);
   const [triggerDelete, setTriggerDelete] = useState(false);
-  const { user, setUser } = useContext(AuthContext)
-  const [ error, setError ] = useState('')
 
   const getTweet = async () => {
     try {

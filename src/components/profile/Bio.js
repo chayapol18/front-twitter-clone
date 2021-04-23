@@ -44,7 +44,6 @@ import { IconBase } from "react-icons/lib";
 const EditProfileModal = ({
   user,
   updateUser,
-  setUpdateUser,
   handleUpdateChange,
   handleEditProfileButton,
 }) => {
@@ -186,18 +185,15 @@ const EditProfileModal = ({
 };
 
 function Bio({ getMe, setToggleUpdate }) {
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
   const [numberFollowing, setNumberFollowing] = useState([]);
   const [numberFollower, setNumberFollower] = useState([]);
-
   const [updateUser, setUpdateUser] = useState({
     name: user.name,
     bio: user.bio,
     location: user.location,
-    // birthDate: '',
   });
-  console.log(updateUser);
 
   const handleUpdateChange = (e) => {
     const { name, value } = e.target;
@@ -210,18 +206,9 @@ function Bio({ getMe, setToggleUpdate }) {
         name: updateUser.name,
         bio: updateUser.bio,
         location: updateUser.location,
-        // birthDate: updateUser.birthDate,
       })
-      // .then(res => {
-
-      // })
       .catch((err) => {
         console.log(err);
-        //   if (err.response) {
-        //     setError({ server: err.response.data.message })
-        //   } else {
-        //     setError({ front: err.message })
-        //   }
       });
     setToggleUpdate((prev) => !prev);
   };
