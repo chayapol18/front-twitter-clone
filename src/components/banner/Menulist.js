@@ -462,7 +462,7 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                                 More
                             </Box>
                         </Button> */}
-            <Menu>
+            {/* <Menu>
               <MenuButton
                 as={Button}
                 colorScheme="blue"
@@ -495,7 +495,7 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                   <ModalFollowerRequests user={user} />
                 </MenuItem>
               </MenuList>
-            </Menu>
+            </Menu> */}
           </Stack>
           <ModalAddTweet
             user={user}
