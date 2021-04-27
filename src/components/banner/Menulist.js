@@ -56,7 +56,7 @@ const ModalAddTweet = ({ user, content, setContent, handleAddTweet }) => {
         colorScheme="twitter"
         variant="solid"
         ml={3}
-        mt={10}
+        mt='104px'
         w="220px"
         h="50px"
         borderRadius="50px"

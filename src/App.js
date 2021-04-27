@@ -9,6 +9,7 @@ import ProfilePage from './pages/ProfilePage'
 import SearchPage from './pages/SearchPage'
 import FollowPage from './pages/FollowPage'
 import BookmarksPage from './pages/BookmarksPage'
+import OtherUserPage from './pages/OtherUserPage'
 import TweetPage from './pages/TweetPage'
 import { useContext } from 'react'
 import { AuthContext } from './contexts/AuthContextProvider'
@@ -37,6 +38,10 @@ const privateRoutes = [
   {
     path: '/bookmarks',
     component: BookmarksPage
+  },
+  {
+    path: '/other-user-page',
+    component: OtherUserPage
   }
 ]
 
