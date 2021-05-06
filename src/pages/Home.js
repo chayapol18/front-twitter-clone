@@ -1,11 +1,10 @@
 import Menulist from "../components/banner/Menulist";
 import TrendBar from "../components/banner/TrendBar";
 import Content from "../components/container/Content";
-import { Text, Flex, Button, Grid, GridItem } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Tweets from "../components/tweet/Tweets";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../config/axios";
-import { AuthContext } from "../contexts/AuthContextProvider";
 
 
 function Home() {

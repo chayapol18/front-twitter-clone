@@ -16,12 +16,8 @@ import {
 } from "@chakra-ui/react";
 import {
   RepeatIcon,
-  ExternalLinkIcon,
-  ChatIcon,
-  StarIcon,
   SettingsIcon,
   DeleteIcon,
-  DownloadIcon,
   EditIcon,
   AttachmentIcon,
 } from "@chakra-ui/icons";
@@ -34,10 +30,8 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { MdSettings } from "react-icons/md";
 import { BiArrowToTop, BiMessageRounded } from "react-icons/bi";
 import { FiHeart, FiRepeat } from "react-icons/fi";
-import { GrUpload } from "react-icons/gr";
 import { useDisclosure } from "@chakra-ui/react";
 import { useEffect, useState, useContext } from "react";
 import axios from "../../config/axios";

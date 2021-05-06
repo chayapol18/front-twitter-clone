@@ -15,12 +15,8 @@ import {
 } from "@chakra-ui/react";
 import {
   RepeatIcon,
-  ExternalLinkIcon,
-  ChatIcon,
-  StarIcon,
   SettingsIcon,
   DeleteIcon,
-  DownloadIcon,
   EditIcon,
   AttachmentIcon,
 } from "@chakra-ui/icons";

@@ -7,11 +7,8 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import axios from "../../config/axios";
 import EachTweet from "../tweet/EachTweet";
 import TweetWithReTweet from "../tweet/TweetWithRetweet";
-import Tweets from "../tweet/Tweets";
 
 function OtherUserTweets({ otherUserTweets }) {
   return (

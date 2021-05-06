@@ -11,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { FaTwitter } from "react-icons/fa";
-import { Link as ReachLink } from "@reach/router";
 import React from "react";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";

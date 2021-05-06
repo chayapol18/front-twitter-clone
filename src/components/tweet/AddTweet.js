@@ -1,11 +1,8 @@
 import {
   Flex,
-  Image,
-  Text,
   HStack,
   Button,
   IconButton,
-  Textarea,
   Input,
   Avatar,
 } from "@chakra-ui/react";

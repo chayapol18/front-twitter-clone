@@ -9,13 +9,6 @@ import {
   Stack,
   HStack,
   Input,
-  Link,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Icon,
   FormControl,
   FormLabel,
 } from "@chakra-ui/react";
@@ -39,7 +32,6 @@ import {
 import { AuthContext } from "../../contexts/AuthContextProvider";
 import axios from "../../config/axios";
 import { useHistory } from "react-router-dom";
-import { IconBase } from "react-icons/lib";
 
 const EditProfileModal = ({
   user,
@@ -249,7 +241,7 @@ const EditProfileModal = ({
   );
 };
 
-function Bio({ getMe, setToggleUpdate }) {
+function Bio({ setToggleUpdate }) {
   const { user, setUser } = useContext(AuthContext);
   const history = useHistory();
   const [numberFollowing, setNumberFollowing] = useState([]);

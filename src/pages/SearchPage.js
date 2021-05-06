@@ -2,7 +2,6 @@ import Menulist from "../components/banner/Menulist";
 import Search from "../components/search/Search";
 import Content from "../components/container/Content";
 import {
-  Text,
   Flex,
   Button,
   Input,

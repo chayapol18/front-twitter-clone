@@ -3,18 +3,14 @@ import {
   Stack,
   Text,
   Flex,
-  Spacer,
   Button,
   HStack,
-  Icon,
   IconButton,
   Input,
-  Image,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  FormLabel,
   Avatar,
 } from "@chakra-ui/react";
 import {
@@ -27,16 +23,11 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import { MdCall } from "react-icons/md";
-import { FiUser, FiMoreHorizontal } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import { FaTwitter } from "react-icons/fa";
 import { BiBookmark, BiHomeCircle } from "react-icons/bi";
 import {
   Search2Icon,
-  DragHandleIcon,
-  TriangleUpIcon,
-  StarIcon,
-  InfoIcon,
   AttachmentIcon,
   ChevronUpIcon,
 } from "@chakra-ui/icons";
@@ -166,7 +157,6 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
   const [error, setError] = useState("");
 
   const [content, setContent] = useState("");
-  const [tweet, setTweet] = useState([]);
 
   useEffect(() => {
     const getMe = async () => {

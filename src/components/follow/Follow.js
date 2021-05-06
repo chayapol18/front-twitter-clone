@@ -1,7 +1,6 @@
 import {
   Flex,
   Stack,
-  HStack,
   Tabs,
   TabList,
   TabPanels,

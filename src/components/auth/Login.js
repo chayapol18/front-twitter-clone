@@ -1,13 +1,10 @@
 import {
-  Box,
   Flex,
   Text,
   Button,
   IconButton,
   Input,
-  Icon,
   Link,
-  Container,
   InputGroup,
   InputRightElement,
 } from "@chakra-ui/react";

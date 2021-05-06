@@ -6,14 +6,10 @@ import {
   Input,
   IconButton,
   Text,
-  Lorem,
-  Select,
   FormControl,
   FormLabel,
-  FormHelperText,
   InputGroup,
   InputRightElement,
-  HStack,
 } from "@chakra-ui/react";
 import {
   Modal,
@@ -316,9 +312,6 @@ function Register() {
     history.push("/login");
   };
 
-  const handleSignup = () => {
-    history.push("/register");
-  };
 
   const handleSubmit = () => {
     axios

@@ -4,7 +4,6 @@ import Content from "../components/container/Content";
 import {
   Text,
   Flex,
-  Button,
   HStack,
   IconButton,
   Stack,

@@ -6,7 +6,6 @@ import React, { useState, useContext } from 'react'
 import localStorageService from '../services/localStorageService'
 import { AuthContext } from "../contexts/AuthContextProvider";
 import axios from '../config/axios'
-import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 
 function RegisterPage() {

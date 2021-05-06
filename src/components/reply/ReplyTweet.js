@@ -15,12 +15,8 @@ import {
 } from "@chakra-ui/react";
 import {
   RepeatIcon,
-  ExternalLinkIcon,
-  ChatIcon,
-  StarIcon,
   SettingsIcon,
   DeleteIcon,
-  DownloadIcon,
   EditIcon,
   AttachmentIcon,
 } from "@chakra-ui/icons";
@@ -36,10 +32,9 @@ import {
 import { BiArrowToTop, BiMessageRounded } from "react-icons/bi";
 import { FiHeart, FiRepeat } from "react-icons/fi";
 import { useDisclosure } from "@chakra-ui/react";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "../../config/axios";
 import { AuthContext } from "../../contexts/AuthContextProvider";
-import { useHistory } from "react-router-dom";
 
 const ModalAddReply = ({
   replyContent,
@@ -152,7 +147,6 @@ const ModalAddReply = ({
 
 function ReplyTweet({ reply, setTriggerReply}) {
   const { user } = useContext(AuthContext);
-  const history = useHistory();
   const [replyContent, setReplyContent] = useState("");
 
   const handleDeleteTweet = async (tweetId) => {
@@ -168,14 +162,6 @@ function ReplyTweet({ reply, setTriggerReply}) {
     } catch (err) {}
   };
 
-  const handleReplyTweet = async (tweetId) => {
-    await axios.post("/tweets", {
-      content: replyContent,
-      levelTweetId: 2,
-      replyToTweetId: tweetId,
-    });
-    setReplyContent("");
-  };
 
   const handleRetweet = async (tweetId) => {
     try {
