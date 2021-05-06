@@ -161,15 +161,6 @@ const EditProfileModal = ({
             ) : (
               <Avatar mt="-68px" size="2xl" border="solid 5px white" />
             )}
-            {/* <IconButton
-              as={PlusSquareIcon}
-              color="white"
-              h="20px"
-              w="20px"
-              mt="-35px"
-              ml="-85px"
-              variant="ghost"
-            /> */}
             <FormControl id="inputUserImg">
               <FormLabel position="absolute" mt="-75px" ml="43px">
                 <IconButton
@@ -237,11 +228,6 @@ const EditProfileModal = ({
                   onChange={handleUpdateChange}
                 />
               </FormControl>
-
-              {/* <FormControl id='birthDate' isRequired>
-                            <FormLabel>Date of Birth</FormLabel>
-                            <Input placeholder='Date of Birth' type="text" name="birthDate" value={updateUser.birthDate} onChange={handleUpdateChange}/>
-                        </FormControl> */}
             </Stack>
           </ModalBody>
 
@@ -251,6 +237,7 @@ const EditProfileModal = ({
               onClick={() => {
                 handleEditProfileButton();
                 onClose();
+                window.location.reload()
               }}
             >
               Save
@@ -413,7 +400,6 @@ function Bio({ getMe, setToggleUpdate }) {
           backgroundFile={backgroundFile}
           userBackground={userBackground}
         />
-        {/* <Button mt='15px' bgColor='white' border='solid 1px' borderRadius='full' color='blue.400' >Edit profile</Button> */}
       </Flex>
 
       <Flex direction="column" textAlign="left" ml="20px">
@@ -438,7 +424,6 @@ function Bio({ getMe, setToggleUpdate }) {
               months[createdAtDate.getMonth()]
             } ${createdAtDate.getFullYear()}`}{" "}
           </Text>
-          {/* {Date(user.createdAt).split(' ').slice(1, 4).join(' ')} */}
         </Stack>
       </Flex>
 

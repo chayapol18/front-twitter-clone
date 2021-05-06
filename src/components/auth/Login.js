@@ -134,10 +134,6 @@ function Login() {
           Log in
         </Button>
       </Flex>
-      {/* <Flex direction='row' textAlign='left'>
-                {error.emailOrUsername && <Container color='red' w='380px'>{error.emailOrUsername}</Container>}
-                {error.password && <Container color='red' >{error.password}</Container>}
-            </Flex> */}
       <Link
         variant="none"
         borderRadius="20px"

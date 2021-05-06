@@ -31,7 +31,7 @@ function SearchPage() {
 
   return (
     <Flex direction="row">
-      <Menulist />
+      <Menulist pathName="Search" />
       <Content
         header={
           <InputGroup w="580px" mb="-12px" mt="-3px">

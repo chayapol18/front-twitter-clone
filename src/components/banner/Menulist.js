@@ -56,7 +56,7 @@ const ModalAddTweet = ({ user, content, setContent, handleAddTweet }) => {
         colorScheme="twitter"
         variant="solid"
         ml={3}
-        mt='104px'
+        mt="104px"
         w="220px"
         h="50px"
         borderRadius="50px"
@@ -149,115 +149,6 @@ const ModalAddTweet = ({ user, content, setContent, handleAddTweet }) => {
                     Tweet
                   </Button>
                 )}
-
-                {/* <Button onClick={() => {
-                            handleAddTweet();
-                            onClose();
-                        }}
-                        _hover={{ background: "blue.500", }} 
-                        borderRadius='full' bgColor='blue.400' 
-                        color='white'>Tweet</Button> */}
-              </HStack>
-            </Flex>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-const ModalSetting = ({ user }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Text onClick={onOpen} w="100%">
-        Setting
-      </Text>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader paddingBottom="0">
-            <Box
-              w="100%"
-              h="30px"
-              borderBottom="1px"
-              borderColor="gray.200"
-              // ml="px"
-            >
-              Setting
-            </Box>
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Flex direction="row">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum
-              explicabo alias ducimus magnam molestias voluptates eaque illum
-              animi deserunt repellat?
-            </Flex>
-          </ModalBody>
-
-          <ModalFooter></ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
-  );
-};
-
-const ModalFollowerRequests = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return (
-    <>
-      <Text onClick={onOpen} w="100%">
-        Follower Requests
-      </Text>
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader paddingBottom="0">
-            <Box
-              w="109%"
-              h="30px"
-              borderBottom="1px"
-              borderColor="gray.200"
-              ml="-24px"
-            >
-              {" "}
-            </Box>
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Flex direction="row">
-              <FormLabel>Request</FormLabel>
-            </Flex>
-          </ModalBody>
-
-          <ModalFooter>
-            <Flex
-              direction="row"
-              w="100%"
-              ml="60px"
-              paddingTop="10px"
-              borderTop="1px"
-              borderColor="gray.200"
-            >
-              <HStack spacing="10px" justify="space-between" w="100%">
-                <IconButton
-                  _hover={{ background: "blue.100" }}
-                  variant="ghost"
-                  as={AttachmentIcon}
-                  w="20px"
-                  h="20px"
-                  color="blue.400"
-                  borderRadius="full"
-                />
-                <Button
-                  _hover={{ background: "blue.500" }}
-                  borderRadius="full"
-                  bgColor="blue.400"
-                  color="white"
-                >
-                  Tweet
-                </Button>
               </HStack>
             </Flex>
           </ModalFooter>
@@ -356,16 +247,29 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                 h="30px"
                 color="black"
               />
-              <Box
-                w="100%"
-                p={1}
-                color="black"
-                textAlign="left"
-                _hover={{ color: "blue.400" }}
-              >
-                Home
-              </Box>
+              {pathName === "Home" ? (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="blue.400"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Home
+                </Box>
+              ) : (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="black"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Home
+                </Box>
+              )}
             </Button>
+
             <Button
               colorScheme="blue"
               variant="none"
@@ -387,16 +291,29 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                 _hover={{ background: "none", border: "none" }}
                 _focus={{ background: "none", border: "none" }}
               />
-              <Box
-                w="100%"
-                p={1}
-                color="black"
-                textAlign="left"
-                _hover={{ color: "blue.400" }}
-              >
-                Explore
-              </Box>
+              {pathName === "Search" ? (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="blue.400"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Explore
+                </Box>
+              ) : (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="black"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Explore
+                </Box>
+              )}
             </Button>
+
             <Button
               colorScheme="blue"
               variant="none"
@@ -416,15 +333,27 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                 h="30px"
                 color="black"
               />
-              <Box
-                w="100%"
-                p={1}
-                color="black"
-                textAlign="left"
-                _hover={{ color: "blue.400" }}
-              >
-                Bookmarks
-              </Box>
+              {pathName === "Bookmark" ? (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="blue.400"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Bookmarks
+                </Box>
+              ) : (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="black"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Bookmarks
+                </Box>
+              )}
             </Button>
             <Button
               colorScheme="blue"
@@ -445,57 +374,29 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
                 h="30px"
                 color="black"
               />
-              <Box
-                w="100%"
-                p={1}
-                color="black"
-                textAlign="left"
-                _hover={{ color: "blue.400" }}
-              >
-                Profile
-              </Box>
+              {pathName === "Profile" ? (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="blue.400"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Profile
+                </Box>
+              ) : (
+                <Box
+                  w="100%"
+                  p={1}
+                  color="black"
+                  textAlign="left"
+                  _hover={{ color: "blue.400" }}
+                >
+                  Profile
+                </Box>
+              )}
             </Button>
 
-            {/* <Button colorScheme="blue" variant="none" w='160px' borderRadius="50px" color="black">
-                            <IconButton variant="none" as={DragHandleIcon} mr='5px' w='20px' h='20px' color="black" />
-                            <Box w="100%" p={1} color="black" textAlign='left'>
-                                More
-                            </Box>
-                        </Button> */}
-            {/* <Menu>
-              <MenuButton
-                as={Button}
-                colorScheme="blue"
-                variant="none"
-                w="160px"
-                borderRadius="full"
-                color="black"
-                pl="0"
-                _hover={{ background: "none", border: "none" }}
-                _focus={{ background: "none", border: "none" }}
-              >
-                <Flex direction="row" ml="5px" alignItems="center" >
-                  <Icon
-                    as={FiMoreHorizontal}
-                    variant="none"
-                    w="30px"
-                    h="30px"
-                    color="black"
-                  />
-                  <Text ml="15px" >
-                    More
-                  </Text>
-                </Flex>
-              </MenuButton>
-              <MenuList>
-                <MenuItem minH="48px">
-                  <ModalSetting user={user} />
-                </MenuItem>
-                <MenuItem minH="48px">
-                  <ModalFollowerRequests user={user} />
-                </MenuItem>
-              </MenuList>
-            </Menu> */}
           </Stack>
           <ModalAddTweet
             user={user}
@@ -503,9 +404,6 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
             setContent={setContent}
             handleAddTweet={handleAddTweet}
           />
-          {/* <Button colorScheme="blue" variant="solid" ml={3} mt={10} w='220px' h='50px' borderRadius="50px" color="white">
-                        Tweet
-                    </Button> */}
         </Flex>
         <Menu>
           <MenuButton
@@ -523,7 +421,6 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
             _focus={{ border: "none" }}
           >
             <Flex direction="row" alignItems="center">
-              {/* <Image src={user.profileImg} fallbackSrc="placeholdit.com/200x200" alt='img' h='45px' w='45px' borderRadius='full' ml='5px' mr='15px'/> */}
               {user.profileImg ? (
                 <Avatar
                   src={user.profileImg}
@@ -548,7 +445,6 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
           <MenuList>
             <MenuItem minH="60px" _hover={{ bgColor: "white" }}>
               <Flex direction="row" alignItems="center">
-                {/* <Image src={user.profileImg} fallbackSrc="placeholdit.com/200x200" alt='img' h='45px' w='45px' borderRadius='full' ml='5px' mr='15px'/> */}
                 {user.profileImg ? (
                   <Avatar
                     name={user.name}
@@ -576,24 +472,6 @@ function Menulist({ pathName, getTweet, getMyTweet }) {
           </MenuList>
         </Menu>
 
-        {/* <Button colorScheme="white" variant="solid" ml={3} mt={185} w='240px' h='60px' borderRadius="50px" color='black'>
-                    <Flex direction='row' alignItems='center'>
-                        <Image src='https://bit.ly/sage-adebayo' fallbackSrc="placeholdit.com/200x200" alt='img' h='40px' w='40px' borderRadius='full' ml='10px' mr='8px'/>
-                        <Flex direction="column" mr='10px'>
-                            <Box w="100%" p={1} color="black">
-                                name of user
-                            </Box>
-                            <Box w="100%" p={1} color="black">
-                                @username
-                            </Box>
-                        </Flex>
-                    </Flex>
-
-                    <Button variant="none" alignItems='center'>
-                        ...
-                    </Button>
-                    
-                </Button> */}
       </Flex>
     </Box>
   );

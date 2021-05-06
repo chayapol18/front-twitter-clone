@@ -36,7 +36,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import localStorageService from "../../services/localStorageService";
 
 const DatePickerButton = ({ onSelect, selected }) => {
-  // const [startDate, setStartDate] = useState(new Date());
   return (
     <DatePicker
       selected={selected}
@@ -153,25 +152,11 @@ const SignupModal = ({
                 />
               </FormControl>
 
-              {/* <Flex direction='column'>
-                          <Text mr='15px' mb='10px'>Date of Birth :</Text>
-                          <DatePickerButton 
-                            selected={input.birthDate}
-                            onSelect={handleInputChange} 
-                          />
-                      </Flex> */}
-
-              {/* <FormControl id='birthDate' isRequired>
-                        <FormLabel>Date of Birth</FormLabel>
-                        <Input placeholder='Date of Birth' type="text" name="birthDate" value={input.birthDate} onChange={handleInputChange}/>
-                      </FormControl> */}
-
               <FormControl id="password" isRequired>
                 <Flex direction="row">
                   <FormLabel>Password</FormLabel>
                   {error.password && <Text color="red">{error.password}</Text>}
                 </Flex>
-                {/* <Input placeholder='Password' type="password" value={input.username} onChange={handleInputChange}/> */}
                 <InputGroup>
                   <Input
                     type={show ? "text" : "password"}
@@ -213,7 +198,6 @@ const SignupModal = ({
                   )}
                 </Flex>
 
-                {/* <Input placeholder='Confirm Password' type="password" value={input.confirmPassword} onChange={handleInputChange}/> */}
                 <InputGroup>
                   <Input
                     type={show ? "text" : "password"}
@@ -249,21 +233,6 @@ const SignupModal = ({
 
               {error.server && <Text color="red">{error.server}</Text>}
 
-              {/* <FormControl id='name' isRequired>
-                        <FormLabel >Name</FormLabel>
-                        <Input placeholder='Name' type="text" />
-                        <FormHelperText>fill your name</FormHelperText>
-                      </FormControl>
-                      
-                      <FormControl id='email' isRequired>
-                        <FormLabel>Email</FormLabel>
-                        <Input placeholder='Phone, Username or Email' type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                        <FormHelperText>We'll never share your email.</FormHelperText>
-                      </FormControl>
-                      
-                      <Input placeholder='Name'></Input>
-                      <Input placeholder='Phone, Username or Email' name="email" type="text"></Input>
-                       */}
             </Stack>
           </ModalBody>
 
@@ -406,7 +375,6 @@ function Register() {
             error={error}
             setError={setError}
           />
-          {/* <Button borderRadius='40px' bgColor='white' color='blue.400' border='solid 1px' h='45px' onClick={handleSignup}>Sign up</Button> */}
           <Button
             borderRadius="40px"
             bgColor="white"

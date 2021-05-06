@@ -10,7 +10,6 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import TweetIncReply from "../components/tweet/TweetIncReply";
 import MainTweet from "../components/reply/MainTweet";
 import ReplyTweet from "../components/reply/ReplyTweet";
 import { useHistory, useLocation } from "react-router-dom";

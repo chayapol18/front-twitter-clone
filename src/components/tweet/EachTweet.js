@@ -280,10 +280,7 @@ function EachTweet({
             <Text color="gray.400">{`${
               months[createdAtDate.getMonth()]
             } ${createdAtDate.getDate()}, ${createdAtDate.getFullYear()}`}</Text>
-            {/* <Text color='gray.400'>{Date(createdAt).split(' ').slice(1, 4).join(' ')}</Text> */}
           </HStack>
-
-          {/* <IconButton icon={<SettingsIcon/>} variant="ghost" _hover={{ background: "white" }} _focus={{ background: "white", borderStyle:'none' }} /> */}
           
         </Flex>
 
@@ -298,7 +295,6 @@ function EachTweet({
 
         <Flex direction="row" m="14px 0 20px">
           <HStack spacing="100px">
-            {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ChatIcon} w='17px' h='17px' color="gray.400" borderRadius='full'/> */}
             <ModalAddReply
               replyContent={replyContent}
               setReplyContent={setReplyContent}
@@ -373,7 +369,6 @@ function EachTweet({
               )}
             </Menu>
 
-            {/* <IconButton _hover={{ background: "green.100", color: "green.300", }} variant="ghost" as={RepeatIcon} w='18px' h='18px' color="gray.400" /> */}
             <HStack
               spacing="-5px"
               _hover={{ background: "none", color: "red.400" }}
@@ -434,7 +429,6 @@ function EachTweet({
                 )}
               </MenuList>
             </Menu>
-            {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ExternalLinkIcon} w='18px' h='18px' color="gray.400" onClick={() => handleBookmarkButton(id)}/> */}
           </HStack>
           <Menu>
             <MenuButton

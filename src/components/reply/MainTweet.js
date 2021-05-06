@@ -209,13 +209,11 @@ function MainTweet({ myParams, setTriggerReply}) {
     try {
       await axios.post(`/tweets/retweet`, { tweetId });
       await axios.patch(`/tweets/increase-retweet`, { tweetId });
-      // setTriggerDelete((prev) => !prev);
     } catch (err) {}
   };
 
   const handleLikeTweet = async (tweetId) => {
     await axios.patch(`/tweets/increase-like`, { tweetId });
-    // setTriggerDelete((prev) => !prev);
   };
 
   const createdAtDate = new Date(tweetIncReply.createdAt);
@@ -265,10 +263,8 @@ function MainTweet({ myParams, setTriggerReply}) {
             <Text>{tweetIncReply.User.name}</Text>
             <Text color="gray.400">@{tweetIncReply.User.username}</Text>
 
-            {/* <Text color='gray.400'>{Date(createdAt).split(' ').slice(1, 4).join(' ')}</Text> */}
           </HStack>
 
-          {/* <IconButton icon={<SettingsIcon/>} variant="ghost" _hover={{ background: "white" }} _focus={{ background: "white", borderStyle:'none' }} /> */}
 
           <Menu>
             <MenuButton
@@ -319,7 +315,6 @@ function MainTweet({ myParams, setTriggerReply}) {
 
         <Flex direction="row" m="14px 0 20px">
           <HStack spacing="100px">
-            {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ChatIcon} w='17px' h='17px' color="gray.400" borderRadius='full'/> */}
             <ModalAddReply
               replyContent={replyContent}
               setReplyContent={setReplyContent}
@@ -350,7 +345,6 @@ function MainTweet({ myParams, setTriggerReply}) {
               </MenuList>
             </Menu>
 
-            {/* <IconButton _hover={{ background: "green.100", color: "green.300", }} variant="ghost" as={RepeatIcon} w='18px' h='18px' color="gray.400" /> */}
               <IconButton
                 _hover={{ background: "none", color: "red.400" }}
                 color="gray.400"
@@ -377,7 +371,6 @@ function MainTweet({ myParams, setTriggerReply}) {
               />
 
               <MenuList>
-                {/* {pathName !== "Bookmark" && ( */}
                 <MenuItem
                   icon={<EditIcon />}
                   // onClick={() => handleBookmarkButton(id)}
@@ -393,7 +386,6 @@ function MainTweet({ myParams, setTriggerReply}) {
                 >
                   Remove Tweet from Bookmark
                 </MenuItem>
-                {/* )} */}
               </MenuList>
             </Menu>
             {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ExternalLinkIcon} w='18px' h='18px' color="gray.400" onClick={() => handleBookmarkButton(id)}/> */}

@@ -162,20 +162,9 @@ function ReplyTweet({ reply, setTriggerReply}) {
     } catch (err) {}
   };
 
-  // const handleBookmarkButton = async (tweetId) => {
-  //   try {
-  //     await axios.post(`/tweets/bookmark/`, {
-  //       content,
-  //       userId: user.id,
-  //       tweetId,
-  //     });
-  //   } catch (err) {}
-  // };
-
   const handleDeleteBookmark = async (bookmarkId) => {
     try {
       await axios.delete(`/tweets/bookmarks/${bookmarkId}`);
-      // setTriggerDelete((prev) => !prev);
     } catch (err) {}
   };
 
@@ -248,10 +237,8 @@ function ReplyTweet({ reply, setTriggerReply}) {
             <Text color="gray.400">{`${
               months[createdAtDate.getMonth()]
             } ${createdAtDate.getDate()}, ${createdAtDate.getFullYear()}`}</Text>
-            {/* <Text color='gray.400'>{Date(createdAt).split(' ').slice(1, 4).join(' ')}</Text> */}
           </HStack>
 
-          {/* <IconButton icon={<SettingsIcon/>} variant="ghost" _hover={{ background: "white" }} _focus={{ background: "white", borderStyle:'none' }} /> */}
           <Menu>
             <MenuButton
               as={IconButton}
@@ -283,12 +270,10 @@ function ReplyTweet({ reply, setTriggerReply}) {
 
         <Flex direction="row" m="14px 0 20px">
           <HStack spacing="100px">
-            {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ChatIcon} w='17px' h='17px' color="gray.400" borderRadius='full'/> */}
             <ModalAddReply
               replyContent={replyContent}
               setReplyContent={setReplyContent}
               user={user}
-              // handleReplyTweet={() => handleReplyTweet(reply.id)}
             />
             <Menu>
               <HStack
@@ -330,7 +315,6 @@ function ReplyTweet({ reply, setTriggerReply}) {
               </MenuList>
             </Menu>
 
-            {/* <IconButton _hover={{ background: "green.100", color: "green.300", }} variant="ghost" as={RepeatIcon} w='18px' h='18px' color="gray.400" /> */}
             <HStack
               spacing="-5px"
               _hover={{ background: "none", color: "red.400" }}
@@ -373,23 +357,16 @@ function ReplyTweet({ reply, setTriggerReply}) {
               />
 
               <MenuList>
-                {/* {pathName !== "Bookmark" && ( */}
                 <MenuItem
                   icon={<EditIcon />}
-                  // onClick={() => handleBookmarkButton(id)}
                 >
                   Add Tweet to Bookmarks
                 </MenuItem>
-                {/* )} */}
-
-                {/* {pathName === "Bookmark" && ( */}
                 <MenuItem
                   icon={<DeleteIcon />}
-                  // onClick={() => handleDeleteBookmark(id)}
                 >
                   Remove Tweet from Bookmark
                 </MenuItem>
-                {/* )} */}
               </MenuList>
             </Menu>
             {/* <IconButton _hover={{ background: "blue.100", color: "blue.300", }} variant="ghost" as={ExternalLinkIcon} w='18px' h='18px' color="gray.400" onClick={() => handleBookmarkButton(id)}/> */}

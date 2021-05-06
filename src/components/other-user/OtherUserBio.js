@@ -77,7 +77,6 @@ function OtherUserBio({ otherUser }) {
               months[createdAtDate.getMonth()]
             } ${createdAtDate.getFullYear()}`}{" "}
           </Text>
-          {/* {Date(user.createdAt).split(' ').slice(1, 4).join(' ')} */}
         </Stack>
       </Flex>
 
