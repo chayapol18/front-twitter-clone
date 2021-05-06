@@ -4,7 +4,6 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import LoginPage from './pages/LoginPage'
-import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage'
 import SearchPage from './pages/SearchPage'
 import FollowPage from './pages/FollowPage'
@@ -54,10 +53,6 @@ const publicRoutes = [
     path: '/login',
     component: LoginPage
   },
-  {
-    path: '/register',
-    component: RegisterPage
-  }
 ]
 
 function App() {
@@ -67,7 +62,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
             <Switch>
-                {/* <Route path="/design-system" component={DesignSystemPage}></Route> */}
                 {isAuthenticated && 
                 privateRoutes.map(el => <Route exact path={el.path} component={el.component} />)}
 
@@ -75,10 +69,6 @@ function App() {
                 publicRoutes.map(el => <Route exact path={el.path} component={el.component} />)}
 
                 <Redirect to="/" />
-
-                {/* <Route exact path="/" component={Auth}></Route>
-                <Route exact path="/home" component={Home}></Route>
-                <Route exact path="/login" component={LoginPage}></Route> */}
             </Switch>
           </BrowserRouter>
     </div>
