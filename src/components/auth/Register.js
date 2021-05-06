@@ -50,7 +50,7 @@ const SignupModal = ({
   birthDate,
   setBirthDate,
   error,
-  setError
+  setError,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure({
     onClose: () => {
@@ -62,7 +62,7 @@ const SignupModal = ({
         confirmPassword: "",
       });
       setBirthDate("");
-      setError('')
+      setError("");
     },
   });
 
@@ -98,7 +98,7 @@ const SignupModal = ({
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={3}>
-              <FormControl id="name">
+              <FormControl id="name" isRequired>
                 <Flex direction="row">
                   <FormLabel>Name</FormLabel>
                   {error.name && <Text color="red">{error.name}</Text>}
@@ -228,7 +228,6 @@ const SignupModal = ({
               </FormControl>
 
               {error.server && <Text color="red">{error.server}</Text>}
-
             </Stack>
           </ModalBody>
 
@@ -266,6 +265,8 @@ function Register() {
     if (name === "name") {
       if (!value) {
         setError((prev) => ({ ...prev, name: "name is required" }));
+      } else {
+        setError((prev) => ({ ...prev, name: "" }));
       }
     }
 
@@ -286,12 +287,16 @@ function Register() {
     if (name === "username") {
       if (!value) {
         setError((prev) => ({ ...prev, username: "username is required" }));
+      } else {
+        setError((prev) => ({ ...prev, username: "" }));
       }
     }
 
     if (name === "password") {
       if (!value) {
         setError((prev) => ({ ...prev, password: "password is required" }));
+      } else {
+        setError((prev) => ({ ...prev, password: "" }));
       }
     }
 
@@ -301,6 +306,8 @@ function Register() {
           ...prev,
           confirmPassword: "confirmPassword is required",
         }));
+      } else {
+        setError((prev) => ({ ...prev, confirmPassword: "" }));
       }
     }
   };
@@ -311,7 +318,6 @@ function Register() {
   const handleLogin = () => {
     history.push("/login");
   };
-
 
   const handleSubmit = () => {
     axios
@@ -331,7 +337,7 @@ function Register() {
       .catch((err) => {
         if (err.response) {
           setError({ server: err.response.data.message });
-          console.log(err.response)
+          console.log(err.response);
         } else {
           setError({ front: err.message });
         }
