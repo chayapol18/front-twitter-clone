@@ -125,6 +125,7 @@ function Login() {
           borderRadius="25px"
           h="45px"
           w="100px"
+          mt="6px"
           fontWeight="700"
           onClick={handleLogin}
         >
